@@ -14,7 +14,7 @@ describe("rule checker tests", function () {
     });
     
     it("Test 2 (get files from array)", () => {
-        const element = '5';
+        const element = '666';
         let rules = [];
         let fs = require('fs');
         let fileNames = fs.readdirSync(directoryPath).filter(name => name.match(/.*.\.rule$/));
@@ -33,6 +33,29 @@ describe("rule checker tests", function () {
         initialize({rules});
         result = checkRule(element);
         expect(Boolean(result)).equal(true);
+    });
+
+    it("Test 3 (correct element speed test)", () => {
+        let a = new Date();
+        const element = '665';
+        initialize({directoryPath});
+        for (let i = 1; i< 1000; i++)
+        {
+            result = checkRule(element);
+        }
+        expect(new Date() - a).below(10);
+    });
+
+    
+    it("Test 4 (incorrect element speed test)", () => {
+        let a = new Date();
+        const element = '666';
+        initialize({directoryPath});
+        for (let i = 1; i< 1000; i++)
+        {
+            result = checkRule(element);
+        }
+        expect(new Date() - a).below(10);
     });
 });
 
